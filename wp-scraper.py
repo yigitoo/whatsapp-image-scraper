@@ -4,6 +4,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import TimeoutException
@@ -14,10 +15,11 @@ from datetime import datetime
 
 class Scraper:
     def __init__(self):
+        self.service = Service(executable_path="chromedriver.exe")
         chrome_options = Options()
         chrome_options.add_argument("--window-size=1920x1080")
-        chrome_options.add_argument("user-data-dir=~/Library/Application Support/Google/Chrome/Default/Cookies")
-        self.driver = webdriver.Chrome(chrome_options=chrome_options)
+        chrome_options.add_argument("user-data-dir=C:\\Users\\Yigit\\AppData\\Local\\Google\\Chrome\\User Data\\")
+        self.driver = webdriver.Chrome(chrome_options=chrome_options, service=self.service)
         print("Opening Whatsapp Web Window")
         self.driver.get('https://web.whatsapp.com')
         print("Scan Your QR Codes and Press Enter (Press Enter if You're Already Logged In)")
